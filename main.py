@@ -9,6 +9,7 @@ def run(n, m, x_max, t_max):
     efd = ExplicitFiniteDifferenceMethod(n, m, x_max, t_max)
     approx_values = efd.count()
     error = count_error(approx_values, x_max, t_max)
+    t = 0
     show_plot(approx_values, x_max, t_max, error)
 
 
