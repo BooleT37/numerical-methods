@@ -17,8 +17,7 @@ def show_plot(approx_values, x_max, t_max, error):
 
     ax.set_xlabel('x')
     ax.set_ylabel('t')
-    # ax.legend(['exact values', 'approx_values'])
-    ax.set_title(f"Error is {error}")
+    ax.set_title(f"n = {n}, m = {m}, Error is {error}")
 
     plt.show()
 
@@ -30,3 +29,11 @@ def create_grid(x_max, t_max, n, m, zz):
     tt = np.array(inclusive_range(0, t_max, tau))
     xx, tt = np.meshgrid(xx, tt)
     return xx, tt, zz
+
+
+def show_errors_plot(errors, values, **kwargs):
+    plt.plot(values, errors)
+    plt.title(kwargs["title"])
+    plt.xlabel(kwargs["xlabel"])
+    plt.ylabel("error")
+    plt.show()
