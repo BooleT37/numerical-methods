@@ -25,8 +25,8 @@ METHOD_TITLES = {
 
 def run():
     # count_for_default_intervals(Method.ImplicitFiniteDifference)
-    count_for_different_n(Method.ImplicitFiniteDifference)
-    # count_for_different_m(Method.ImplicitFiniteDifference)
+    # count_for_different_n(Method.ImplicitFiniteDifference)
+    count_for_different_m(Method.ImplicitFiniteDifference)
 
 
 def count_for_default_intervals(method):
@@ -58,7 +58,7 @@ def count_for_different_n(method):
 
 
 def count_for_different_m(method):
-    m_end = 90
+    m_end = 450
     m_step = 10
     errors = []
     mm = range(m_start, m_end, m_step)
