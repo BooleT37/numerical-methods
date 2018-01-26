@@ -6,7 +6,7 @@ from functionutils import count_exact_values
 from utils import inclusive_range
 
 
-def show_plot(approx_values, x_max, t_max, error):
+def show_plot(approx_values, x_max, t_max, error, title = ""):
     n = approx_values.shape[1] - 1
     m = approx_values.shape[0] - 1
     exact_values = count_exact_values(n, m, x_max, t_max)
@@ -17,8 +17,7 @@ def show_plot(approx_values, x_max, t_max, error):
 
     ax.set_xlabel('x')
     ax.set_ylabel('t')
-    ax.set_title(f"n = {n}, m = {m}, Error is {error}")
-
+    ax.set_title((f"{title}\n" if title != "" else "") + f"n = {n}, m = {m}, Error is {error}")
     plt.show()
 
 
