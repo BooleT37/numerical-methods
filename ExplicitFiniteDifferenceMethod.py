@@ -1,7 +1,7 @@
 import math
 import numpy as np
 
-from functionutils import init_value, left_boundary_value, right_boundary_value
+from functionutils import init_value, left_boundary_value, right_boundary_value, count_g
 from utils import inclusive_range
 
 
@@ -35,10 +35,8 @@ class ExplicitFiniteDifferenceMethod:
         return matrix
 
     def count_single_value(self, u, i, j):
-        return self.tau * ((u[j - 1, i + 1] - 2 * u[j - 1, i] + u[j - 1, i - 1]) / (self.h ** 2) + self.count_g(i, j - 1)) + u[j - 1, i]
+        return self.tau * ((u[j - 1, i + 1] - 2 * u[j - 1, i] + u[j - 1, i - 1]) / (self.h ** 2) +
+                           count_g(i, j - 1, self.h, self.tau)) + u[j - 1, i]
 
-    def count_g(self, i, j):
-        x = i * self.h
-        t = j * self.tau
-        return math.sin(x) + (2 * t) / (t ** 2 + 1)
+
 
