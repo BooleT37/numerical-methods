@@ -1,33 +1,45 @@
 import numpy as np
 from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
+import msvcrt
 
 from functionutils import count_exact_values
 from utils import inclusive_range
 
 
-def show_plot(approx_values, x_max, t_max, error, title = ""):
+def show_plot(approx_values, x_max, t_max, errors):
     n = approx_values.shape[1] - 1
     m = approx_values.shape[0] - 1
+    tau = t_max / m
     exact_values = count_exact_values(n, m, x_max, t_max)
+    k = 0
+    t = 0
+    print(f"Временной разрез {k} (t = {t})")
+    show_plot_for_layer(approx_values[k], exact_values[k], errors[k], x_max, n, m, t)
+    while k <= m:
+        k += 1
+        t = tau * k
+        print(f"Временной разрез {k} (t = {t})")
+        show_plot_for_layer(approx_values[k], exact_values[k], errors[k], x_max, n, m, t)
+
+
+def show_plot_for_layer(approx_values, exact_values, error, x_max, n, m, t):
     fig = plt.figure()
     ax = fig.gca(projection='3d')
-    Axes3D.plot_surface(ax, *create_grid(x_max, t_max, n, m, exact_values), color='royalblue')
-    Axes3D.plot_surface(ax, *create_grid(x_max, t_max, n, m, approx_values), color='orangered')
+    Axes3D.plot_surface(ax, *create_grid(x_max, n, approx_values), color='royalblue')
+    Axes3D.plot_surface(ax, *create_grid(x_max, n, exact_values), color='orangered')
 
     ax.set_xlabel('x')
-    ax.set_ylabel('t')
-    ax.set_title((f"{title}\n" if title != "" else "") + f"n = {n}, m = {m}, Error is {error}")
+    ax.set_ylabel('y')
+    ax.set_title(f"Метод переменных направлений\nt ={t}, n = {n}, m = {m}, Error is {error}")
     plt.show()
 
 
-def create_grid(x_max, t_max, n, m, zz):
+def create_grid(x_max, n, zz):
     h = x_max / n
-    tau = t_max / m
     xx = np.array(inclusive_range(0, x_max, h))
-    tt = np.array(inclusive_range(0, t_max, tau))
-    xx, tt = np.meshgrid(xx, tt)
-    return xx, tt, zz
+    xx, tt = np.meshgrid(xx, xx)
+    return xx, xx, zz
 
 
 def show_errors_plot(errors, values, **kwargs):
