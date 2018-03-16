@@ -29,7 +29,7 @@ class AlternatingDirectionMethod(GridMethod):
         dd = np.ndarray(shape=self.n - 1)
         dd[0] = - self.count_f(y_ext, 1, j, k) - (self.gamma / 2) * y_ext[k, j, 0]
         for ind in range(1, self.n - 2):
-            dd[ind] = self.count_f(y_ext, ind + 1, j, k)
+            dd[ind] = - self.count_f(y_ext, ind + 1, j, k)
         dd[self.n - 2] = - self.count_f(y_ext, self.n - 1, j, k) - (self.gamma / 2) * y_ext[k, j, self.n]
         return dd
 
@@ -37,7 +37,7 @@ class AlternatingDirectionMethod(GridMethod):
         dd = np.ndarray(shape=self.n - 1)
         dd[0] = - self.count_phi(y_ext, i, 1, k) - (self.gamma / 2) * y_ext[k, 0, i]
         for ind in range(1, self.n - 2):
-            dd[ind] = self.count_phi(y_ext, i, ind + 1, k)
+            dd[ind] = - self.count_phi(y_ext, i, ind + 1, k)
         dd[self.n - 2] = - self.count_phi(y_ext, i, self.n - 1, k) - (self.gamma / 2) * y_ext[k, self.n, i]
         return dd
 

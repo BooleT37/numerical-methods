@@ -43,6 +43,9 @@ def count_errors_for_layers(approx_values, x_max, t_max):
     h = x_max / n
     tau = t_max / m
 
+    coeff = countStabilityKoeff(h, tau)
+    print(f"Stability koeff is {coeff}. " + ("method converges" if coeff <= 0.5 else "method doesn't converge"))
+
     errors_for_layers = np.zeros(m + 1)
     exact_values = count_exact_values(n, m, x_max, t_max)
     errors = np.zeros((m + 1, n + 1, n + 1))
@@ -72,3 +75,7 @@ def count_lambda1(y, i, j, h):
 
 def count_lambda2(y, i, j, h):
     return (y[j + 1, i] - 2 * y[j, i] + y[j - 1, i]) / (h ** 2)
+
+
+def countStabilityKoeff(h, tau):
+    return tau * (2 / (h ** 2))

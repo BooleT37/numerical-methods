@@ -64,8 +64,8 @@ def count_for_different_n(n_start, n_end, n_step, m):
     nn = range(n_start, n_end, n_step)
     for n in nn:
         approx_values = AlternatingDirectionMethod(n, m, x_max, t_max).count()
-        errors = count_errors_for_layers(approx_values, x_max, t_max)
-        error = np.max(errors)
+        layer_errors = count_errors_for_layers(approx_values, x_max, t_max)
+        error = np.max(layer_errors)
         errors.append(error)
     title = "Метод переменных направлений"
     title += f"\nN = {{{n_start}, {n_start + n_step}, ..., {n_end - n_step}, {n_end}}}, M = {m}"
@@ -78,8 +78,8 @@ def count_for_different_m(m_start, m_end, m_step, n):
     mm = range(m_start, m_end + m_step, m_step)
     for m in mm:
         approx_values = AlternatingDirectionMethod(n, m, x_max, t_max).count()
-        errors = count_errors_for_layers(approx_values, x_max, t_max)
-        error = np.max(errors)
+        layer_errors = count_errors_for_layers(approx_values, x_max, t_max)
+        error = np.max(layer_errors)
         errors.append(error)
     title = "Метод переменных направлений"
     title += f"\nN = {n}, M = {{{m_start}, {m_start + m_step}, ..., {m_end - m_step}, {m_end}}}"
@@ -87,5 +87,4 @@ def count_for_different_m(m_start, m_end, m_step, n):
     show_errors_plot(errors, mm, title=title, xlabel="M")
 
 
-# run()
-count_for_default_intervals(n_default, m_default)
+run()
